@@ -2,7 +2,7 @@
 #include "GraphicObject.h"
 #include "PhysicObject.h"
 
-class GameObject
+class GameObject: public BaseObject
 {
 private:
 	GraphicObject graphic;
@@ -11,7 +11,7 @@ private:
 public:
 	GameObject(const GraphicObject& _graphic, const PhysicObject& _physic);
 	
-	void update();
+	virtual void update(float elapsedTime);
 
 	GraphicObject& getGraphic();
 	PhysicObject& getPhysic();

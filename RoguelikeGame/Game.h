@@ -1,13 +1,14 @@
 #pragma once
 #include "GameObject.h"
-#include <iostream>
+#include <vector>
 
 class Game
 {
 private:
 	sf::RenderWindow window;
 
-	GameObject* gobj;
+	std::vector<BaseObject*> objects;
+	GameObject* character;
 
 public:
 	static sf::Vector2u resolution;

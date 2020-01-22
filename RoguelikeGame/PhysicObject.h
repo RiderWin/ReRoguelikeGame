@@ -1,5 +1,7 @@
 #pragma once
-class PhysicObject
+#include "BaseObject.h"
+
+class PhysicObject: public BaseObject
 {
 };
 

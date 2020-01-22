@@ -10,10 +10,12 @@ Game::Game()
 	init();
 }
 
-void Game::init()
+void Game::init()//
 {
-	gobj = new GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject());
-	gobj->getGraphic().setPosition(200, 200);
+	character = new GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject());
+	character->getGraphic().setPosition(200, 200);
+
+	objects.push_back(character);
 }
 
 void Game::start()
@@ -33,24 +35,6 @@ void Game::start()
 		update(elapsedTime);
 		draw();
 	}
-
-	/*sf::RenderWindow window(sf::VideoMode(200, 200), "Lesson 2. kychka-pc.ru");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Red);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}*/
 }
 
 bool isMove = false;
@@ -59,29 +43,18 @@ void Game::input(sf::Event event)
 {
 	if (event.type == sf::Event::Closed)
 		window.close();
-	if (event.type == sf::Event::KeyPressed)
+
+	for (int i = 0; i != objects.size(); i++)
 	{
-		if (event.key.code == sf::Keyboard::D)
-		{
-			isMove = true;
-		}
-	}
-	if (event.type == sf::Event::KeyReleased)
-	{
-		if (event.key.code == sf::Keyboard::D)
-		{
-			isMove = false;
-		}
+		objects[i]->input(event);
 	}
 }
 
 void Game::update(float elapsedTime)
 {
-	if (isMove)
+	for (int i = 0; i != objects.size(); i++)
 	{
-		std::cout << elapsedTime << std::endl;
-		sf::Vector2f pos = gobj->getGraphic().getPosition();
-		gobj->getGraphic().setPosition(pos.x + elapsedTime*10, pos.y);
+		objects[i]->update(elapsedTime);
 	}
 }
 
@@ -89,11 +62,18 @@ void Game::draw()
 {
 	window.clear();
 
-	window.draw(gobj->getGraphic());
+	for (int i = 0; i != objects.size(); i++)
+	{
+		if (objects[i]->getFlag() == GAME_OBJ)
+			window.draw(static_cast<GameObject*>(objects[i])->getGraphic());
+		else if (objects[i]->getFlag() == GRAPHIC_OBJ)
+			window.draw(*static_cast<GraphicObject*>(objects[i]));
+	}
 
 	window.display();
 }
 
+// Добавление объектов в словарь по их айдишникам
 // Animation class
 // AnimationManager class
 // Объект главного перса с передвижением

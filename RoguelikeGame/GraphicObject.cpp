@@ -2,6 +2,7 @@
 
 GraphicObject::GraphicObject(const std::string& _image, const sf::IntRect& _texRect): texture(*new sf::Texture())
 {
+	flag = GRAPHIC_OBJ;
 	texture.loadFromFile(_image);
 	setTexture(texture);
 	texRect = _texRect;
@@ -10,6 +11,6 @@ GraphicObject::GraphicObject(const std::string& _image, const sf::IntRect& _texR
 
 void GraphicObject::debug()
 {
-
+	
 }
 
