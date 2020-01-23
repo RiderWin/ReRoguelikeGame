@@ -9,6 +9,12 @@ void GameObject::update(float elapsedTime)
 {
 	physic.update(elapsedTime);
 	graphic.update(elapsedTime);
+	
+}
+
+void GameObject::draw(sf::RenderWindow* window)
+{
+	window->draw(graphic);
 }
 
 GraphicObject& GameObject::getGraphic()

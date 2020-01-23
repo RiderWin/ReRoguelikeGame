@@ -18,6 +18,7 @@ public:
 
 	virtual void input(sf::Event event) {};
 	virtual void update(float elapsedTime) {};
+	virtual void draw(sf::RenderWindow* window) {};
 	virtual void debug() {};
 
 	int getId();

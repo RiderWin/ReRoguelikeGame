@@ -10,12 +10,21 @@ Game::Game()
 	init();
 }
 
-void Game::init()//
+void Game::init()
 {
-	character = new GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject());
-	character->getGraphic().setPosition(200, 200);
+	graphObj = new GraphicObject("resources/img/hero.png", sf::IntRect(0, 96, 96, 96));
+	graphObj->setPosition(400, 200);
 
-	objects.push_back(character);
+	physObj = new PhysicObject();
+
+	gameObj = new GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject());
+	gameObj->getGraphic().setPosition(200, 200);
+
+	objects.push_back(graphObj);
+	objects.push_back(physObj);
+	objects.push_back(gameObj);
+
+	
 }
 
 void Game::start()
@@ -64,10 +73,7 @@ void Game::draw()
 
 	for (int i = 0; i != objects.size(); i++)
 	{
-		if (objects[i]->getFlag() == GAME_OBJ)
-			window.draw(static_cast<GameObject*>(objects[i])->getGraphic());
-		else if (objects[i]->getFlag() == GRAPHIC_OBJ)
-			window.draw(*static_cast<GraphicObject*>(objects[i]));
+		objects[i]->draw(&window);
 	}
 
 	window.display();

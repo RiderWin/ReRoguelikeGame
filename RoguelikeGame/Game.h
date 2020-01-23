@@ -8,7 +8,9 @@ private:
 	sf::RenderWindow window;
 
 	std::vector<BaseObject*> objects;
-	GameObject* character;
+	GraphicObject* graphObj;
+	PhysicObject* physObj;
+	GameObject* gameObj;
 
 public:
 	static sf::Vector2u resolution;

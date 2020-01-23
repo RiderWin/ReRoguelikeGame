@@ -11,7 +11,8 @@ private:
 public:
 	GameObject(const GraphicObject& _graphic, const PhysicObject& _physic);
 	
-	virtual void update(float elapsedTime);
+	virtual void update(float elapsedTime) override;
+	virtual void draw(sf::RenderWindow* window) override;
 
 	GraphicObject& getGraphic();
 	PhysicObject& getPhysic();

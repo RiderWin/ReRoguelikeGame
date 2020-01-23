@@ -14,3 +14,8 @@ void GraphicObject::debug()
 	
 }
 
+void GraphicObject::draw(sf::RenderWindow* window)
+{
+	window->draw(*this);
+}
+
