@@ -17,15 +17,15 @@ void Game::init()
 
 	physObj = new PhysicObject();
 
-	gameObj = new GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject());
-	gameObj->getGraphic().setPosition(200, 200);
+	hero = new Hero();
+	hero->getGraphic().setPosition(200, 200);
 
 	objects.push_back(graphObj);
 	objects.push_back(physObj);
-	objects.push_back(gameObj);
+	objects.push_back(hero);
 
 	
-}//govna kusok
+}
 
 void Game::start()
 {
@@ -45,8 +45,6 @@ void Game::start()
 		draw();
 	}
 }
-
-bool isMove = false;
 
 void Game::input(sf::Event event)
 {

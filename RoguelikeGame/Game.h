@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Hero.h"
 #include <vector>
 
 class Game
@@ -11,6 +12,7 @@ private:
 	GraphicObject* graphObj;
 	PhysicObject* physObj;
 	GameObject* gameObj;
+	Hero* hero;
 
 public:
 	static sf::Vector2u resolution;
