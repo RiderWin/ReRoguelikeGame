@@ -4,7 +4,7 @@
 
 class GameObject: public BaseObject
 {
-private:
+protected:
 	GraphicObject graphic;
 	PhysicObject physic;
 
