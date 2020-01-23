@@ -25,7 +25,7 @@ void Game::init()
 	objects.push_back(gameObj);
 
 	
-}
+}//govna kusok
 
 void Game::start()
 {
