@@ -14,7 +14,7 @@ void GameObject::update(float elapsedTime)
 
 void GameObject::draw(sf::RenderWindow* window)
 {
-	window->draw(graphic);
+	graphic.draw(window);
 }
 
 GraphicObject& GameObject::getGraphic()

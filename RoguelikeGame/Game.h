@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Hero.h"
+#include "Map.h"
 #include <vector>
 
 class Game
@@ -8,6 +9,7 @@ class Game
 private:
 	sf::RenderWindow window;
 
+	Map map;
 	std::vector<BaseObject*> objects;
 	GraphicObject* graphObj;
 	PhysicObject* physObj;

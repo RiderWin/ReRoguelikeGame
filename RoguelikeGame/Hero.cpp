@@ -1,13 +1,14 @@
 #include "Hero.h"
 
-Hero::Hero() :GameObject(GraphicObject("resources/img/hero.png", sf::IntRect(0, 192, 96, 96)), PhysicObject())
+Hero::Hero() :GameObject(GraphicObject(GameData::texHero), PhysicObject())
 {
-	speed = 40;
+	health = 0;
+	speed = 200;
 }
 
 void Hero::input(sf::Event event)
 {
-	
+
 }
 
 void Hero::update(float elapsedTime)
@@ -28,6 +29,14 @@ void Hero::update(float elapsedTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		velocity.x = 1;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		graphic.rotate(-10 * elapsedTime);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		graphic.rotate(10 * elapsedTime);
 	}
 
 	graphic.move(velocity * speed * elapsedTime);

@@ -3,6 +3,7 @@
 
 int main()
 {
+	GameData::init();
 	Game game;
 	game.start();
 

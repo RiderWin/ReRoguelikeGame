@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include <iostream> // for debug
+#include "GameData.h"
 
 #define BASE_OBJ 0
 #define GRAPHIC_OBJ 1

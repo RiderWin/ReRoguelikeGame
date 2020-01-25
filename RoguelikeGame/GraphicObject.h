@@ -4,13 +4,13 @@
 class GraphicObject: public BaseObject, public sf::Sprite
 {
 private:
-	sf::Texture& texture;
+	const sf::Texture& texture;
 	sf::IntRect texRect;
 
 public:
-	GraphicObject(const std::string& image, const sf::IntRect& _texRect);
+	GraphicObject(const sf::Texture& _texture);
 	
-	virtual void debug() override;
 	virtual void draw(sf::RenderWindow* window) override;
+	virtual void debug() override;
 };
 

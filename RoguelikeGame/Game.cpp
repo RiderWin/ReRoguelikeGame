@@ -12,20 +12,18 @@ Game::Game()
 
 void Game::init()
 {
-	graphObj = new GraphicObject("resources/img/hero.png", sf::IntRect(0, 96, 96, 96));
-	graphObj->setPosition(400, 200);
+	//graphObj = new GraphicObject("resources/img/hero.png", sf::IntRect(0, 96, 96, 96));
+	//graphObj->setPosition(400, 200);
 
-	physObj = new PhysicObject();
-
-	hero = new Hero();
-	hero->getGraphic().setPosition(200, 200);
-
-	objects.push_back(graphObj);
-	objects.push_back(physObj);
-	objects.push_back(hero);
-
+	//physObj = new PhysicObject();
 	
-}//govna kusok
+	hero = new Hero();
+	//hero->getGraphic().setPosition(200, 200);
+	
+	//objects.push_back(graphObj);
+	//objects.push_back(physObj);
+	objects.push_back(hero);	
+}
 
 void Game::start()
 {
@@ -40,7 +38,7 @@ void Game::start()
 		{
 			input(event);
 		}
-
+		
 		update(elapsedTime);
 		draw();
 	}
@@ -59,6 +57,7 @@ void Game::input(sf::Event event)
 
 void Game::update(float elapsedTime)
 {
+	map.fun(hero->getGraphic().getGlobalBounds());
 	for (int i = 0; i != objects.size(); i++)
 	{
 		objects[i]->update(elapsedTime);
@@ -69,6 +68,7 @@ void Game::draw()
 {
 	window.clear();
 
+	map.draw(&window);
 	for (int i = 0; i != objects.size(); i++)
 	{
 		objects[i]->draw(&window);

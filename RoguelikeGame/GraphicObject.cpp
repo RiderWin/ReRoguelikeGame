@@ -1,21 +1,20 @@
 #include "GraphicObject.h"
 
-GraphicObject::GraphicObject(const std::string& _image, const sf::IntRect& _texRect): texture(*new sf::Texture())
+GraphicObject::GraphicObject(const sf::Texture& _texture): texture(_texture)
 {
 	flag = GRAPHIC_OBJ;
-	texture.loadFromFile(_image);
 	setTexture(texture);
-	texRect = _texRect;
-	setTextureRect(texRect);
-}
-
-void GraphicObject::debug()
-{
-	
 }
 
 void GraphicObject::draw(sf::RenderWindow* window)
 {
 	window->draw(*this);
+	debug();
 }
 
+void GraphicObject::debug()
+{
+	//std::cout << "ID = " << id << " : height = "<< getGlobalBounds().height << " top = " << getGlobalBounds().top << std::endl;
+
+	//std::cout << "ID = " << id << " : &texture " << &texture << std::endl;
+}
