@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include <iostream> // for debug
 #include "GameData.h"
+#include "GameConfig.h"
 
 #define BASE_OBJ 0
 #define GRAPHIC_OBJ 1

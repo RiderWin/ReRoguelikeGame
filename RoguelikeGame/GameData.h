@@ -7,7 +7,13 @@ private:
 	GameData();
 public:
 	static void init();
-	static sf::Texture& texHero;
-	static sf::Texture& texBox;
+
+	/// 
+
+	/// Textures
+	static sf::Texture texHero;
+	static sf::Texture texBox;
+	static sf::Texture texDirt;
+	static sf::Texture texDiamond;
 };
 
