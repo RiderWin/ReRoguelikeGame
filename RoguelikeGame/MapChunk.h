@@ -1,24 +1,34 @@
-//#pragma once
-//#include <stack>
-//#include "GameObject.h"
-//
-//class MapChunk
-//{
-//private:
-//	std::vector<std::vector<GraphicObject*>> map;
-//	std::vector<sf::Vector2u> startCells;
-//	std::stack<sf::Vector2u> oldCells;
-//public:
-//	static int width;
-//	static int height;
-//
-//	MapChunk();
-//
-//	bool generate();
-//	void clear();
-//	void fun(sf::FloatRect point);
-//	void update(float elapsedTime);
-//	void draw(sf::RenderWindow* window);
-//	void debug();
-//};
-//
+#pragma once
+#include "GameObject.h"
+#include "GraphicObject.h"
+
+class Tile
+{
+public:
+	static int size;
+};
+
+class MapChunk
+{
+public:
+	static int width;
+	static int height;
+
+	bool isGenerated;
+	GraphicObject debugFrame;
+	std::vector<std::vector<GraphicObject*>> tiles;
+	sf::Vector2i position;
+	// Дорога
+	sf::Vector2i roadStart;
+
+	MapChunk* nextChunk;
+
+	MapChunk(sf::Vector2i startTile, sf::Vector2i chunkPosition);
+
+	void generate();
+	void clear();
+	void update(float elapsedTime);
+	void draw(sf::RenderWindow* window);
+
+};
+

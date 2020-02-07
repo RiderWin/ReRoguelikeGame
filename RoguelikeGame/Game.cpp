@@ -1,6 +1,6 @@
 #include "Game.h"
 
-sf::Vector2u Game::resolution = sf::Vector2u(32 * 16, 32 * 9);// (1366, 768);
+sf::Vector2u Game::resolution = sf::Vector2u(22 * Tile::size, 12 * Tile::size);// (1366, 768);
 sf::String Game::title = "RoguelikeGame";
 
 
@@ -15,28 +15,22 @@ sf::String Game::title = "RoguelikeGame";
 
 Game::Game()
 {
-	window.create(sf::VideoMode(32 * 16, 32 * 9), title, sf::Style::Default);
-	window.setSize(sf::Vector2u(800, 450));
+	window.create(sf::VideoMode(22 * Tile::size,  12 * Tile::size), title, sf::Style::Default);
+	//window.setSize(sf::Vector2u(800, 450));
 
-	sf::View& view = *new sf::View(sf::FloatRect(0, 0, 32 * 16, 32 * 9));
+	// For camera
+	//sf::View& view = *new sf::View(sf::FloatRect(11 * Tile::size, 6 * Tile::size, 22 * Tile::size, 12 * Tile::size));
 	//view.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
-	window.setView(view);
+	//window.setView(view);
 
 	init();
+	map.generate();
 }
 
 void Game::init()
 {
-	//graphObj = new GraphicObject("resources/img/hero.png", sf::IntRect(0, 96, 96, 96));
-	//graphObj->setPosition(400, 200);
-
-	//physObj = new PhysicObject();
-
 	hero = new Hero();
-	//hero->getGraphic().setPosition(200, 200);
 
-	//objects.push_back(graphObj);
-	//objects.push_back(physObj);
 	objects.push_back(hero);
 }
 
@@ -89,7 +83,7 @@ void Game::input(sf::Event event)
 
 void Game::update(float elapsedTime)
 {
-	window.setView(sf::View(sf::FloatRect(hero->getGraphic().getPosition().x, hero->getGraphic().getPosition().y, 32*16, 32*9)));
+	window.setView(sf::View(sf::FloatRect(hero->getGraphic().getPosition().x, hero->getGraphic().getPosition().y, 22 * Tile::size, 12 * Tile::size)));
 	
 	
 	//map.fun(hero->getGraphic().getGlobalBounds());
@@ -102,20 +96,6 @@ void Game::update(float elapsedTime)
 void Game::draw()
 {
 	window.clear();
-
-	if (map.generate())
-	{
-		sf::Clock clock;
-		while (clock.getElapsedTime().asSeconds() < 0.15)
-		{
-		}
-		//std::cout << "HOP" << std::endl;
-	}
-	//else
-	//{
-	//	map.clear();
-	//}
-
 	map.draw(&window);
 	for (int i = 0; i != objects.size(); i++)
 	{

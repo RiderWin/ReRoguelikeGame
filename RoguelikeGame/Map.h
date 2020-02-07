@@ -1,23 +1,32 @@
 #pragma once
 #include <stack>
+#include <map>
 #include "GameObject.h"
+#include "MapChunk.h"
+
+// Для сравнения векторов
+namespace sf
+{
+	template <typename T>
+	bool operator <(const Vector2<T>& left, const Vector2<T>& right)
+	{
+		if (left.y == right.y) return (left.x < right.x);
+		else return (left.y < right.y);
+	}
+}
 
 class Map
 {
 private:
 	int width;
 	int height;
-	std::vector<std::vector<GraphicObject*>> map;
-
-	std::stack<sf::Vector2i> oldCells;
-	sf::Vector2i cell;
+	std::map<sf::Vector2i, MapChunk> map;
 
 public:
 	Map();
 
-	bool generate();
+	void generate();
 	void clear();
-	void fun(sf::FloatRect point);
 	void update(float elapsedTime);
 	void draw(sf::RenderWindow* window);
 	void debug();

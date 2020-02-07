@@ -3,7 +3,7 @@
 Hero::Hero() :GameObject(GraphicObject(GameData::texHero), PhysicObject())
 {
 	health = 0;
-	speed = 200;
+	speed = 400;
 }
 
 void Hero::input(sf::Event event)

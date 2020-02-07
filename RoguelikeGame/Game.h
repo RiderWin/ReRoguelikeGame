@@ -11,8 +11,6 @@ private:
 
 	Map map;
 	std::vector<BaseObject*> objects;
-	GraphicObject* graphObj;
-	PhysicObject* physObj;
 	GameObject* gameObj;
 	Hero* hero;
 

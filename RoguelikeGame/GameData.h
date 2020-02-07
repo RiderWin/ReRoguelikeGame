@@ -15,5 +15,6 @@ public:
 	static sf::Texture texBox;
 	static sf::Texture texDirt;
 	static sf::Texture texDiamond;
+	static sf::Texture texChunkFrame;
 };
 
