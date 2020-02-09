@@ -1,7 +1,15 @@
+//-----ReSpace-Engine-----
+//	
+//	«десь должно быть что-то важное... :)
+//	
+//------------------------
 #pragma once
 #include "GraphicObject.h"
 #include "PhysicObject.h"
 
+
+// Ѕазовый класс дл€ игровых объектов
+// »гровой объект - объект, объедин€ющий графический и физический объекты
 class GameObject: public BaseObject
 {
 protected:

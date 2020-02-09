@@ -1,20 +1,16 @@
+//-----ReSpace-Engine-----
+//	
+//	Здесь должно быть что-то важное... :)
+//	
+//------------------------
 #pragma once
-#include <stack>
 #include <map>
 #include "GameObject.h"
 #include "MapChunk.h"
 
-// Для сравнения векторов
-namespace sf
-{
-	template <typename T>
-	bool operator <(const Vector2<T>& left, const Vector2<T>& right)
-	{
-		if (left.y == right.y) return (left.x < right.x);
-		else return (left.y < right.y);
-	}
-}
 
+// Класс карты
+// Карта - набор чанков, из которых строится игровая карта
 class Map
 {
 private:

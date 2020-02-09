@@ -1,6 +1,5 @@
 #include "Game.h"
 
-sf::Vector2u Game::resolution = sf::Vector2u(22 * Tile::size, 12 * Tile::size);// (1366, 768);
 sf::String Game::title = "RoguelikeGame";
 
 
@@ -15,7 +14,7 @@ sf::String Game::title = "RoguelikeGame";
 
 Game::Game()
 {
-	window.create(sf::VideoMode(22 * Tile::size,  12 * Tile::size), title, sf::Style::Default);
+	window.create(sf::VideoMode(GameData::chunkWidthPx, GameData::chunkHeightPx), title, sf::Style::Default);
 	//window.setSize(sf::Vector2u(800, 450));
 
 	// For camera
@@ -30,6 +29,7 @@ Game::Game()
 void Game::init()
 {
 	hero = new Hero();
+	hero->getGraphic().setPosition(GameData::chunkWidthPx/2, GameData::chunkHeightPx/2);
 
 	objects.push_back(hero);
 }
@@ -83,7 +83,10 @@ void Game::input(sf::Event event)
 
 void Game::update(float elapsedTime)
 {
-	window.setView(sf::View(sf::FloatRect(hero->getGraphic().getPosition().x, hero->getGraphic().getPosition().y, 22 * Tile::size, 12 * Tile::size)));
+	window.setView(sf::View(sf::FloatRect(
+		hero->getGraphic().getPosition().x - GameData::chunkWidthPx/2,
+		hero->getGraphic().getPosition().y - GameData::chunkHeightPx/2,
+		GameData::chunkWidthPx, GameData::chunkHeightPx)));
 	
 	
 	//map.fun(hero->getGraphic().getGlobalBounds());
@@ -104,9 +107,3 @@ void Game::draw()
 
 	window.display();
 }
-
-// Добавление объектов в словарь по их айдишникам
-// Animation class
-// AnimationManager class
-// Объект главного перса с передвижением
-// TileMap

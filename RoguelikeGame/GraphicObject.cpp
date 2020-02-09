@@ -1,5 +1,6 @@
 #include "GraphicObject.h"
 
+
 GraphicObject::GraphicObject(const sf::Texture& _texture): texture(_texture)
 {
 	flag = GRAPHIC_OBJ;
@@ -9,12 +10,14 @@ GraphicObject::GraphicObject(const sf::Texture& _texture): texture(_texture)
 void GraphicObject::draw(sf::RenderWindow* window)
 {
 	window->draw(*this);
-	debug();
 }
 
 void GraphicObject::debug()
 {
-	//std::cout << "ID = " << id << " : height = "<< getGlobalBounds().height << " top = " << getGlobalBounds().top << std::endl;
+}
 
-	//std::cout << "ID = " << id << " : &texture " << &texture << std::endl;
+void GraphicObject::setPosition(sf::Vector2i _chunkPos, sf::Vector2i _tilePos)
+{
+	setPosition(_tilePos.x * GameData::tileSize, _tilePos.y * GameData::tileSize);
+	move(_chunkPos.x * GameData::chunkWidth * GameData::tileSize, _chunkPos.y * GameData::chunkHeight * GameData::tileSize);
 }

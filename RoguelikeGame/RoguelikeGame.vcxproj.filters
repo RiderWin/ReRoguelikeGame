@@ -81,7 +81,4 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="NewFile.txt" />
-  </ItemGroup>
 </Project>

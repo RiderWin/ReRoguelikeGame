@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+
+// Класс главного героя
 class Hero: public GameObject
 {
 private:

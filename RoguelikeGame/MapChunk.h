@@ -1,27 +1,30 @@
+//-----ReSpace-Engine-----
+//	
+//	Здесь должно быть что-то важное... :)
+//	
+//------------------------
 #pragma once
-#include "GameObject.h"
+#include <vector>
 #include "GraphicObject.h"
 
-class Tile
-{
-public:
-	static int size;
-};
 
+// Класс чанка
+// Чанк - кусок карты, состоящий из тайлов(GraphicObject)
+// Из чанков строится вся карта
 class MapChunk
 {
 public:
-	static int width;
-	static int height;
+	const int width;
+	const int height;
 
 	bool isGenerated;
 	GraphicObject debugFrame;
 	std::vector<std::vector<GraphicObject*>> tiles;
 	sf::Vector2i position;
+	MapChunk* nextChunk;
 	// Дорога
 	sf::Vector2i roadStart;
 
-	MapChunk* nextChunk;
 
 	MapChunk(sf::Vector2i startTile, sf::Vector2i chunkPosition);
 

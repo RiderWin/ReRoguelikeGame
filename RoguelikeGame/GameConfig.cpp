@@ -1,5 +1,6 @@
 #include "GameConfig.h"
 
+bool GameConfig::isDebug = true;
 sf::Vector2u GameConfig::resolution;
 
 void GameConfig::init()

@@ -1,6 +1,11 @@
-#pragma once
-#include <SFML\Graphics.hpp>
+//-----ReSpace-Engine-----
+//	
+//	Здесь должно быть что-то важное... :)
+//	
+//------------------------
+#pragma once // Стандартные подключения
 #include <iostream> // for debug
+#include <SFML\Graphics.hpp>
 #include "GameData.h"
 #include "GameConfig.h"
 
@@ -9,7 +14,22 @@
 #define PHYSIC_OBJ 2
 #define GAME_OBJ 3
 
-class BaseObject
+
+// Для сравнения векторов
+namespace sf
+{
+	template <typename T>
+	bool operator <(const Vector2<T>& left, const Vector2<T>& right)
+	{
+		if (left.y == right.y) return (left.x < right.x);
+		else return (left.y < right.y);
+	}
+}
+
+
+// Базовый класс для всего что есть в игре
+// Имеет стандартные виртуальные функции для обновления, отрисовки, отладки и тд
+class BaseObject 
 {
 protected:
 	static int numberOfObjects;

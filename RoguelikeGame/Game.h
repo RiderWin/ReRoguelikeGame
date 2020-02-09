@@ -1,8 +1,12 @@
+//-----ReSpace-Engine-----
+//	
+//	Здесь должно быть что-то важное... :)
+//	
+//------------------------
 #pragma once
-#include "GameObject.h"
-#include "Hero.h"
-#include "Map.h"
 #include <vector>
+#include "Map.h"
+#include "Hero.h"
 
 class Game
 {
@@ -15,7 +19,6 @@ private:
 	Hero* hero;
 
 public:
-	static sf::Vector2u resolution;
 	static sf::String title;
 
 	Game();

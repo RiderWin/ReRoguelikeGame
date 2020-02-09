@@ -1,19 +1,16 @@
 #include "MapChunk.h"
 
-int Tile::size = 32;
-
-int MapChunk::width = 22;
-int MapChunk::height = 12;
-
-bool isDebug = true;
-
-MapChunk::MapChunk(sf::Vector2i _position, sf::Vector2i _roadStart) : debugFrame(GameData::texChunkFrame)
+MapChunk::MapChunk(sf::Vector2i _position, sf::Vector2i _roadStart) : 
+	width(GameData::chunkWidth), 
+	height(GameData::chunkHeight), 
+	debugFrame(GameData::texChunkFrame)
 {
+
 	position = _position;
 	roadStart = _roadStart;
 	isGenerated = false;
 	tiles = std::vector<std::vector<GraphicObject*>>(height, std::vector<GraphicObject*>(width));
-	debugFrame.setPosition(position.x * width * Tile::size, position.y * height * Tile::size);
+	debugFrame.setPosition(position, sf::Vector2i(0, 0));
 }
 
 void MapChunk::generate()
@@ -44,8 +41,7 @@ void MapChunk::generate()
 			for (int j = tile.x; j <= tile.x + 1; j++)
 			{
 				tiles[i][j] = new GraphicObject(GameData::texDiamond);
-				tiles[i][j]->setPosition(j * Tile::size, i * Tile::size);
-				tiles[i][j]->move(position.x * width * Tile::size, position.y * height * Tile::size);
+				tiles[i][j]->setPosition(position, sf::Vector2i(j, i));
 			}
 		}
 
@@ -91,7 +87,7 @@ void MapChunk::generate()
 				sf::Vector2i dir = freeDirs[rand() % freeDirs.size()]; // Выбираем любое направление
 				cell += dir;
 				road[cell.y][cell.x] = 1;
-				
+
 				tile = cell * 2;
 				// Рисуем тайлы дороги
 				for (int i = tile.y; i <= tile.y + 1; i++)
@@ -99,8 +95,7 @@ void MapChunk::generate()
 					for (int j = tile.x; j <= tile.x + 1; j++)
 					{
 						tiles[i][j] = new GraphicObject(GameData::texDiamond);
-						tiles[i][j]->setPosition(j * Tile::size, i * Tile::size);
-						tiles[i][j]->move(position.x * width * Tile::size, position.y * height * Tile::size);
+						tiles[i][j]->setPosition(position, sf::Vector2i(j, i));
 					}
 				}
 
@@ -138,7 +133,7 @@ void MapChunk::generate()
 			}
 		}
 
-		if (isDebug)
+		if (GameConfig::isDebug)
 		{
 			for (int i = 0; i < roadHeight; i++)
 			{
@@ -186,6 +181,6 @@ void MapChunk::draw(sf::RenderWindow* window)
 				tiles[i][j]->draw(window);
 		}
 	}
-	if (isDebug)
+	if (GameConfig::isDebug)
 		debugFrame.draw(window);
 }

@@ -1,6 +1,13 @@
+//-----ReSpace-Engine-----
+//	
+//	Здесь должно быть что-то важное... :)
+//	
+//------------------------
 #pragma once
 #include <SFML\Graphics.hpp>
 
+
+// Класс, хранящий неизменяемые глобальные переменные и загружаемые данные
 class GameData
 {
 private:
@@ -8,7 +15,12 @@ private:
 public:
 	static void init();
 
-	/// 
+	/// Global variables
+	static const int tileSize;
+	static const int chunkWidth;
+	static const int chunkHeight;
+	static const int chunkWidthPx;
+	static const int chunkHeightPx;
 
 	/// Textures
 	static sf::Texture texHero;
@@ -16,5 +28,9 @@ public:
 	static sf::Texture texDirt;
 	static sf::Texture texDiamond;
 	static sf::Texture texChunkFrame;
+
+	static sf::Texture texRoad;
+	static sf::Texture texRoadLeft;
+	static sf::Texture texRoadRight;
 };
 

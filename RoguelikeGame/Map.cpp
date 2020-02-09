@@ -1,4 +1,5 @@
 #include "Map.h"
+#include <stack>
 
 Map::Map()
 {
@@ -13,7 +14,7 @@ void Map::generate()
 	map.emplace(std::pair<sf::Vector2i, MapChunk>(chunk, MapChunk(chunk, startPos)));
 	map.at(chunk).generate();
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 35; i++)
 	{	
 		MapChunk* nextChunk = map.at(chunk).nextChunk;
 		chunk = nextChunk->position;

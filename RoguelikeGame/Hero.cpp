@@ -2,6 +2,7 @@
 
 Hero::Hero() :GameObject(GraphicObject(GameData::texHero), PhysicObject())
 {
+	graphic.setOrigin(GameData::texHero.getSize().x/2, GameData::texHero.getSize().y / 2);
 	health = 0;
 	speed = 400;
 }
