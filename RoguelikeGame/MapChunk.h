@@ -7,31 +7,44 @@
 #include <vector>
 #include "GraphicObject.h"
 
-
 // Класс чанка
 // Чанк - кусок карты, состоящий из тайлов(GraphicObject)
 // Из чанков строится вся карта
 class MapChunk
 {
+private:
+	// Вложенный класс - Тропинка, по которой можно перемещаться по чанкам
+	class Road
+	{
+	public:
+		const int height;
+		const int width;
+		MapChunk* chunk; // Указатель на свой чанк
+		std::vector<std::vector<GraphicObject*>> road;
+		sf::Vector2i startPos; 
+
+		Road(const sf::Vector2i& _startPos, MapChunk* _chunk);
+		void generate();
+		void update(float elapsedTime);
+		void draw(sf::RenderWindow* window);
+	};
+
+
+	GraphicObject debugFrame;
 public:
 	const int width;
 	const int height;
-
 	bool isGenerated;
-	GraphicObject debugFrame;
-	std::vector<std::vector<GraphicObject*>> tiles;
+	Road road;
 	sf::Vector2i position;
-	MapChunk* nextChunk;
-	// Дорога
-	sf::Vector2i roadStart;
+	std::vector<std::vector<GraphicObject*>> tiles;
+	std::vector<MapChunk> nextChunks; // Массив указателей на последующие чанки
 
-
-	MapChunk(sf::Vector2i startTile, sf::Vector2i chunkPosition);
+	MapChunk(const sf::Vector2i& _position, const sf::Vector2i& _roadStart);
 
 	void generate();
 	void clear();
 	void update(float elapsedTime);
 	void draw(sf::RenderWindow* window);
-
 };
 

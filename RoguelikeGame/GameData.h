@@ -17,6 +17,7 @@ public:
 
 	/// Global variables
 	static const int tileSize;
+	static const int tileSizeX2;
 	static const int chunkWidth;
 	static const int chunkHeight;
 	static const int chunkWidthPx;

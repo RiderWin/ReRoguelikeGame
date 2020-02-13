@@ -1,169 +1,178 @@
 #include "MapChunk.h"
 
-MapChunk::MapChunk(sf::Vector2i _position, sf::Vector2i _roadStart) : 
-	width(GameData::chunkWidth), 
-	height(GameData::chunkHeight), 
-	debugFrame(GameData::texChunkFrame)
-{
 
+// Road
+MapChunk::Road::Road(const sf::Vector2i& _startPos, MapChunk* _chunk) :
+	width(GameData::chunkWidth / 2),
+	height(GameData::chunkHeight / 2)
+{
+	chunk = _chunk;
+	startPos = _startPos;
+	std::cout << "Road() =  " << this << std::endl;
+	road = std::vector<std::vector<GraphicObject*>>(height, std::vector<GraphicObject*>(width));
+}
+
+void MapChunk::Road::generate()
+{
+	sf::Vector2i tile = startPos; // Текущий тайл дороги
+
+	// Рисуем стартовый тайл дороги
+	std::cout << "generate() =  " << this << std::endl;
+	road[tile.y][tile.x] = new GraphicObject(GameData::texRoad);
+	road[tile.y][tile.x]->setPosition(chunk->position, tile * 2);
+
+	std::vector<sf::Vector2i> oldTiles; // Пройденные тайлы
+	while (true)
+	{
+		std::vector<sf::Vector2i> freeDirs; // Массив, хранящий направления, в которые можно пойти
+		// Проверяем есть ли вокруг свободные тайлы
+		if (tile.x > 0 && tile.x < width - 1) // если это не самый левый или правый край
+		{
+			// Вниз
+			if (tile.y < height - 2 && road[tile.y + 2][tile.x] == 0 && // по центру
+				road[tile.y + 1][tile.x - 1] == 0 && road[tile.y + 1][tile.x + 1] == 0 && // по бокам
+				road[tile.y + 2][tile.x - 1] == 0 && road[tile.y + 2][tile.x + 1] == 0) // углы
+				freeDirs.push_back(sf::Vector2i(0, 1));
+			// Вверх
+			if ((tile.y > 1 && road[tile.y - 2][tile.x] == 0 && // по центру
+				road[tile.y - 1][tile.x - 1] == 0 && road[tile.y - 1][tile.x + 1] == 0 && // по бокам
+				road[tile.y - 2][tile.x - 1] == 0 && road[tile.y - 2][tile.x + 1] == 0) || // углы
+				(tile.y == 1 && startPos.y != 0)) // выход с чанка
+				freeDirs.push_back(sf::Vector2i(0, -1));
+		}
+		if (tile.y > 0 && tile.y < height - 1) // если это не самый верхний или нижний край
+		{
+			// Влево
+			if ((tile.x > 1 && road[tile.y][tile.x - 2] == 0 && // по центру
+				road[tile.y - 1][tile.x - 1] == 0 && road[tile.y + 1][tile.x - 1] == 0 && // по бокам
+				road[tile.y - 1][tile.x - 2] == 0 && road[tile.y + 1][tile.x - 2] == 0) || // углы
+				(tile.x == 1 && startPos.x != 0)) // выход с чанка
+				freeDirs.push_back(sf::Vector2i(-1, 0));
+			// Вправо
+			if ((tile.x < width - 2 && road[tile.y][tile.x + 2] == 0 && // по центру
+				road[tile.y - 1][tile.x + 1] == 0 && road[tile.y + 1][tile.x + 1] == 0 && // по бокам
+				road[tile.y - 1][tile.x + 2] == 0 && road[tile.y + 1][tile.x + 2] == 0) || // углы
+				(tile.x == width - 2 && startPos.x != width - 1)) // выход с чанка
+				freeDirs.push_back(sf::Vector2i(1, 0));
+		}
+
+
+		if (freeDirs.size() != 0) // Если вокруг есть свободные тайлы, то идём к любому из них
+		{
+			oldTiles.push_back(tile);
+			sf::Vector2i dir = freeDirs[rand() % freeDirs.size()]; // Выбираем любое направление
+			tile += dir;
+
+			// Рисуем тайл дороги
+			road[tile.y][tile.x] = new GraphicObject(GameData::texRoad);
+			road[tile.y][tile.x]->setPosition(chunk->position, tile * 2);
+
+
+			// Если эта клетка оказалась у края, то заканчиваем генерацию
+			if (tile.y == 0) // Вверх
+			{
+				chunk->nextChunks.push_back(MapChunk(chunk->position + dir, sf::Vector2i(tile.x, height - 1)));
+				chunk->isGenerated = true;
+				break;
+			}
+			else if (tile.x == 0) // Влево
+			{
+				chunk->nextChunks.push_back(MapChunk(chunk->position + dir, sf::Vector2i(width - 1, tile.y)));
+				chunk->isGenerated = true;
+				break;
+			}
+			else if (tile.x == width - 1) // Вправо
+			{
+				chunk->nextChunks.push_back(MapChunk(chunk->position + dir, sf::Vector2i(0, tile.y)));
+				chunk->isGenerated = true;
+				break;
+			}
+		}
+		else if (oldTiles.size() != 0) // Если свободных клеток нет, то берем любую предыдущую клекту и пробуем пойти из неё
+		{
+			int index = rand() % oldTiles.size();
+			tile = oldTiles[index];
+			oldTiles.erase(oldTiles.begin() + index);
+			continue;
+		}
+		else // Если клетки кончились то выходим из цикла генерации
+		{
+			break;
+		}
+	}
+
+	if (GameConfig::isDebug)
+	{
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (road[i][j])
+					std::cout << char(219);
+				else
+					std::cout << ' ';
+			}
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+	}
+
+}
+
+void MapChunk::Road::draw(sf::RenderWindow* window)
+{
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (road[i][j] != nullptr)
+				road[i][j]->draw(window);
+		}
+	}
+}
+
+
+// MapChunk
+MapChunk::MapChunk(const sf::Vector2i& _position, const sf::Vector2i& _roadStart) :
+	width(GameData::chunkWidth),
+	height(GameData::chunkHeight),
+	debugFrame(GameData::texChunkFrame),
+	road(_roadStart, this)
+{
 	position = _position;
-	roadStart = _roadStart;
-	isGenerated = false;
 	tiles = std::vector<std::vector<GraphicObject*>>(height, std::vector<GraphicObject*>(width));
 	debugFrame.setPosition(position, sf::Vector2i(0, 0));
+	isGenerated = false;
 }
 
 void MapChunk::generate()
 {
-	/*for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			tiles[i][j] = new GraphicObject(GameData::texDiamond);
-			tiles[i][j]->setPosition(j * Tile::size, i * Tile::size);
-			tiles[i][j]->move(position.x * width * Tile::size, position.y * height * Tile::size);
-		}
-	}*/
-
 	if (!isGenerated)
 	{
-		// 1ый этап - генерируем дорогу в четверть размера чанка
-		int roadHeight = height / 2;
-		int roadWidth = width / 2;
-		std::vector<std::vector<int>>road = std::vector<std::vector<int>>(roadHeight, std::vector<int>(roadWidth));
-		sf::Vector2i cell = roadStart; // Текущая клетка дороги
-		road[cell.y][cell.x] = 1;
-
-		// Рисуем стартовые тайлы дороги
-		sf::Vector2i tile = cell * 2;
-		for (int i = tile.y; i <= tile.y + 1; i++)
+		road.generate();
+		//nextChunk = new MapChunk(position += road.nextDir, road.nextPos);
+		//isGenerated = true;
+		isGenerated;
+		for (int i = 0; i < nextChunks.size(); i++)
 		{
-			for (int j = tile.x; j <= tile.x + 1; j++)
-			{
-				tiles[i][j] = new GraphicObject(GameData::texDiamond);
-				tiles[i][j]->setPosition(position, sf::Vector2i(j, i));
-			}
-		}
-
-		std::vector<sf::Vector2i> oldCells; // Пройденные клетки
-		while (true)
-		{
-			std::vector<sf::Vector2i> freeDirs; // Вектор, хранящий направления, в которые можно пойти
-			// Проверяем есть ли вокруг свободные клетки
-			if (cell.x > 0 && cell.x < roadWidth - 1) // если это не самый левый или правый край
-			{
-				// Вниз
-				if (cell.y < roadHeight - 2 && road[cell.y + 2][cell.x] == 0 && // по центру
-					road[cell.y + 1][cell.x - 1] == 0 && road[cell.y + 1][cell.x + 1] == 0 && // по бокам
-					road[cell.y + 2][cell.x - 1] == 0 && road[cell.y + 2][cell.x + 1] == 0) // углы
-					freeDirs.push_back(sf::Vector2i(0, 1));
-				// Вверх
-				if ((cell.y > 1 && road[cell.y - 2][cell.x] == 0 && // по центру
-					road[cell.y - 1][cell.x - 1] == 0 && road[cell.y - 1][cell.x + 1] == 0 && // по бокам
-					road[cell.y - 2][cell.x - 1] == 0 && road[cell.y - 2][cell.x + 1] == 0) || // углы
-					(cell.y == 1 && roadStart.y != 0)) // выход с чанка
-					freeDirs.push_back(sf::Vector2i(0, -1));
-			}
-			if (cell.y > 0 && cell.y < roadHeight - 1) // если это не самый верхний или нижний край
-			{
-				// Влево
-				if ((cell.x > 1 && road[cell.y][cell.x - 2] == 0 && // по центру
-					road[cell.y - 1][cell.x - 1] == 0 && road[cell.y + 1][cell.x - 1] == 0 && // по бокам
-					road[cell.y - 1][cell.x - 2] == 0 && road[cell.y + 1][cell.x - 2] == 0) || // углы
-					(cell.x == 1 && roadStart.x != 0)) // выход с чанка
-					freeDirs.push_back(sf::Vector2i(-1, 0));
-				// Вправо
-				if ((cell.x < roadWidth - 2 && road[cell.y][cell.x + 2] == 0 && // по центру
-					road[cell.y - 1][cell.x + 1] == 0 && road[cell.y + 1][cell.x + 1] == 0 && // по бокам
-					road[cell.y - 1][cell.x + 2] == 0 && road[cell.y + 1][cell.x + 2] == 0) || // углы
-					(cell.x == roadWidth - 2 && roadStart.x != roadWidth - 1)) // выход с чанка
-					freeDirs.push_back(sf::Vector2i(1, 0));
-			}
-
-
-			if (freeDirs.size() != 0) // Если вокруг свободные клетки есть, то идём к любой из них
-			{
-				oldCells.push_back(cell);
-				sf::Vector2i dir = freeDirs[rand() % freeDirs.size()]; // Выбираем любое направление
-				cell += dir;
-				road[cell.y][cell.x] = 1;
-
-				tile = cell * 2;
-				// Рисуем тайлы дороги
-				for (int i = tile.y; i <= tile.y + 1; i++)
-				{
-					for (int j = tile.x; j <= tile.x + 1; j++)
-					{
-						tiles[i][j] = new GraphicObject(GameData::texDiamond);
-						tiles[i][j]->setPosition(position, sf::Vector2i(j, i));
-					}
-				}
-
-				// Если эта клетка оказалась у края, то заканчиваем генерацию
-				if (cell.y == 0) // Вверх
-				{
-					nextChunk = new MapChunk(sf::Vector2i(position.x, position.y - 1), sf::Vector2i(cell.x, roadHeight - 1));
-					isGenerated = true;
-					break;
-				}
-				else if (cell.x == 0) // Влево
-				{
-					nextChunk = new MapChunk(sf::Vector2i(position.x - 1, position.y), sf::Vector2i(roadWidth - 1, cell.y));
-					isGenerated = true;
-					break;
-				}
-				else if (cell.x == roadWidth - 1) // Вправо
-				{
-					nextChunk = new MapChunk(sf::Vector2i(position.x + 1, position.y), sf::Vector2i(0, cell.y));
-					isGenerated = true;
-					break;
-				}
-			}
-			else if (oldCells.size() != 0) // Если свободных клеток нет, то берем любую предыдущую клекту и пробуем пойти из неё
-			{
-				int index = rand() % oldCells.size();
-				cell = oldCells[index];
-				oldCells.erase(oldCells.begin() + index);
-				continue;
-			}
-			else // Если клетки кончились то выходим из цикла генерации
-			{
-				isGenerated = true;
-				break;
-			}
-		}
-
-		if (GameConfig::isDebug)
-		{
-			for (int i = 0; i < roadHeight; i++)
-			{
-				for (int j = 0; j < roadWidth; j++)
-				{
-					if (road[i][j])
-						std::cout << char(219);
-					else
-						std::cout << ' ';
-				}
-				std::cout << std::endl;
-			}
-			std::cout << std::endl;
+			std::cout << nextChunks[i].position.x;
 		}
 	}
 }
 
 void MapChunk::clear()
 {
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			if (tiles[i][j] != nullptr)
-			{
-				delete tiles[i][j];
-				tiles[i][j] = nullptr;
-			}
-		}
-	}
+	//for (int i = 0; i < height; i++)
+	//{
+	//	for (int j = 0; j < width; j++)
+	//	{
+	//		if (tiles[i][j] != nullptr)
+	//		{
+	//			delete tiles[i][j];
+	//			tiles[i][j] = nullptr;
+	//		}
+	//	}
+	//}
 }
 
 void MapChunk::update(float elapsedTime)
@@ -181,6 +190,7 @@ void MapChunk::draw(sf::RenderWindow* window)
 				tiles[i][j]->draw(window);
 		}
 	}
+	road.draw(window);
 	if (GameConfig::isDebug)
 		debugFrame.draw(window);
 }

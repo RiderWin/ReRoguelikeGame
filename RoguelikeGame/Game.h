@@ -12,7 +12,7 @@ class Game
 {
 private:
 	sf::RenderWindow window;
-
+	
 	Map map;
 	std::vector<BaseObject*> objects;
 	GameObject* gameObj;

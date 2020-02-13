@@ -2,6 +2,7 @@
 
 /// Global variables
 const int GameData::tileSize = 32;
+const int GameData::tileSizeX2 = tileSize * 2; // Для больших тайлов (например, дорога)
 const int GameData::chunkWidth = 22;
 const int GameData::chunkHeight = 12;
 const int GameData::chunkWidthPx = chunkWidth * tileSize;
@@ -26,8 +27,8 @@ void GameData::init()
 	texDiamond.loadFromFile("resources/img/diamond_block32.png");
 	texChunkFrame.loadFromFile("resources/img/frame22x12.png");
 
-	texRoad.loadFromFile("resources/img/road.png", sf::IntRect(0, 0, 32, 96));
-	texRoadLeft.loadFromFile("resources/img/road.png", sf::IntRect(0, 0, 96, 96));
-	texRoadRight.loadFromFile("resources/img/road.png", sf::IntRect(0, 0, 96, 96));
+	texRoad.loadFromFile("resources/img/road.png", sf::IntRect(0, 0, tileSizeX2, tileSizeX2));
+	texRoadLeft.loadFromFile("resources/img/road.png", sf::IntRect(tileSizeX2, 0, tileSizeX2, tileSizeX2));
+	texRoadRight.loadFromFile("resources/img/road.png", sf::IntRect(tileSizeX2 * 2, 0, tileSizeX2, tileSizeX2));
 
 }

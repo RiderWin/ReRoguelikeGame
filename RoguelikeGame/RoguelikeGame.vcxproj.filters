@@ -13,72 +13,149 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы ресурсов\Img">
+      <UniqueIdentifier>{081a1077-6fba-498e-975a-d627386ba994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Engine">
+      <UniqueIdentifier>{151a1df0-77ca-4d4a-84ee-9ace253c7aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Engine">
+      <UniqueIdentifier>{18bf4fe1-3942-4cfb-8683-56679b28d2c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Engine\Tools">
+      <UniqueIdentifier>{d7d6fcac-f65c-45b0-a62e-c09f73ec2b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Engine\Tools">
+      <UniqueIdentifier>{59b61829-34bc-40a7-9453-598e546b741c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game">
+      <UniqueIdentifier>{ac3e4013-216e-402a-9acb-8455f59e311d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game\GraphicObjects">
+      <UniqueIdentifier>{e2d0f6fa-a964-422f-a0bb-f9119cb15376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game\PhysicObjects">
+      <UniqueIdentifier>{47647e47-ea52-4aa9-bd19-340adbdd242c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Game\GameObjects">
+      <UniqueIdentifier>{b5eb6b37-6e97-4218-a271-615c06ded116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Game">
+      <UniqueIdentifier>{c15396ad-2a95-4a87-bc6c-787aa82ce3f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Game\GameObjects">
+      <UniqueIdentifier>{e679cfe0-51fc-41e9-8272-c5e498277546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Game\GraphicObjects">
+      <UniqueIdentifier>{7e0b629c-1045-4d9e-a6ce-1056737c2258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Game\PhysicObjects">
+      <UniqueIdentifier>{0c816c8a-c118-4e9f-965f-6f243db704a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicObject.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
     <ClCompile Include="PhysicObject.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseObject.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Hero.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Game\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Array.cpp">
+      <Filter>Исходные файлы\Engine\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="GameData.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChunk.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Исходные файлы\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameConfig.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Исходные файлы\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MapChunk.cpp">
+      <Filter>Исходные файлы\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicObject.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
     <ClInclude Include="PhysicObject.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="BaseObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="GameData.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Array.h">
+      <Filter>Файлы заголовков\Engine\Tools</Filter>
     </ClInclude>
     <ClInclude Include="MapChunk.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Файлы заголовков\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Файлы заголовков\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameConfig.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Файлы заголовков\Game\GameObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\img\box.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\diamond_block.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\diamond_block32.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\dirt.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\frame11x6.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\frame16x9.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\frame22x12.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\hero.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\road.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
+    <Image Include="resources\img\Sprite-0002.png">
+      <Filter>Файлы ресурсов\Img</Filter>
+    </Image>
   </ItemGroup>
 </Project>
