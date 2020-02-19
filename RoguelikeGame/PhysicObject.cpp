@@ -1,5 +1,6 @@
 #include "PhysicObject.h"
-
+#include "StandartInclude.h"
+#include "PhysicEngine.h"
 
 void PhysicObject::setPosition(sf::Vector2i _chunkPos, sf::Vector2i _tilePos)
 {

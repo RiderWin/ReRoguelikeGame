@@ -7,7 +7,7 @@
 #include <SFML\Graphics.hpp>
 
 
-//  ласс, хран€щий неизмен€емые глобальные переменные и загружаемые данные
+//  ласс, хран€щий внутренние глобальные переменные и загружаемые данные
 class GameData
 {
 private:
@@ -34,4 +34,3 @@ public:
 	static sf::Texture texRoadLeft;
 	static sf::Texture texRoadRight;
 };
-

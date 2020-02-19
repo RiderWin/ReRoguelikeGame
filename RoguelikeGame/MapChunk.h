@@ -17,34 +17,33 @@ private:
 	class Road
 	{
 	public:
-		const int height;
-		const int width;
+		static const int width;
+		static const int height;
 		MapChunk* chunk; // Указатель на свой чанк
 		std::vector<std::vector<GraphicObject*>> road;
 		sf::Vector2i startPos; 
 
-		Road(const sf::Vector2i& _startPos, MapChunk* _chunk);
+		Road(MapChunk* _chunk, const sf::Vector2i& _startPos);
 		void generate();
 		void update(float elapsedTime);
-		void draw(sf::RenderWindow* window);
+		void draw();
 	};
 
 
 	GraphicObject debugFrame;
 public:
-	const int width;
-	const int height;
+	static const int width;
+	static const int height;
 	bool isGenerated;
 	Road road;
 	sf::Vector2i position;
 	std::vector<std::vector<GraphicObject*>> tiles;
-	std::vector<MapChunk> nextChunks; // Массив указателей на последующие чанки
+	std::vector<MapChunk> nextChunks; // Массив следующих чанков
 
 	MapChunk(const sf::Vector2i& _position, const sf::Vector2i& _roadStart);
 
 	void generate();
-	void clear();
 	void update(float elapsedTime);
-	void draw(sf::RenderWindow* window);
+	void draw();
 };
 

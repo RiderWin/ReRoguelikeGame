@@ -1,4 +1,5 @@
 #include "GameData.h"
+#include "StandartInclude.h"
 
 /// Global variables
 const int GameData::tileSize = 32;
@@ -9,15 +10,15 @@ const int GameData::chunkWidthPx = chunkWidth * tileSize;
 const int GameData::chunkHeightPx = chunkHeight * tileSize;
 
 /// Textures
-sf::Texture GameData::texHero = *new sf::Texture();
-sf::Texture GameData::texBox = *new sf::Texture();
-sf::Texture GameData::texDirt = *new sf::Texture();
-sf::Texture GameData::texDiamond = *new sf::Texture();
-sf::Texture GameData::texChunkFrame = *new sf::Texture();
+sf::Texture GameData::texHero;
+sf::Texture GameData::texBox;
+sf::Texture GameData::texDirt;
+sf::Texture GameData::texDiamond;
+sf::Texture GameData::texChunkFrame;
 
-sf::Texture GameData::texRoad = *new sf::Texture();
-sf::Texture GameData::texRoadLeft = *new sf::Texture();
-sf::Texture GameData::texRoadRight = *new sf::Texture();
+sf::Texture GameData::texRoad;
+sf::Texture GameData::texRoadLeft;
+sf::Texture GameData::texRoadRight;
 
 void GameData::init()
 {

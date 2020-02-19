@@ -1,43 +1,22 @@
 #include "Map.h"
+#include "StandartInclude.h"
 #include <stack>
 
-Map::Map()
+
+std::map<sf::Vector2i, MapChunk*> Map::map;
+sf::Vector2i Map::curChunkPos;
+MapChunk* Map::startChunk;
+
+void Map::create()
 {
-	width = 1;
-	height = 1;
+	curChunkPos = sf::Vector2i(0, 0);
+	startChunk = new MapChunk(curChunkPos, sf::Vector2i(5, 5));
 
-	//sf::Vector2i chunk(0, 0);
-	//index = 0;
-	//map.emplace_back(MapChunk(chunk, sf::Vector2i(5, 5)));
-	//positions.emplace_back(chunk);
-	////map.emplace(chunk, new MapChunk(chunk, sf::Vector2i(5, 5)));
-	////map.at(chunk).generate();
-	//
-	//// Нужно написать свой класс словаря(map) и двумерного вектора
+	map.emplace(curChunkPos, startChunk);
+	map.at(curChunkPos)->generate();
 
-	//Map::setCurrentChunk(sf::Vector2i(0, 0));
-}
-
-void Map::generate()
-{
-
-	/*for (int i = 0; i < 35; i++)
-	{
-		MapChunk* nextChunk = map.at(chunk).nextChunk;
-		chunk = nextChunk->position;
-		map.emplace(std::pair<sf::Vector2i, MapChunk>(chunk, *nextChunk));
-		map.at(chunk).generate();
-	}
-	std::cout << map.size() << std::endl;*/
-
-}
-
-void Map::clear()
-{
-	/*for (auto& item : map)
-	{
-		item.second.clear();
-	}*/
+	curChunkPos = sf::Vector2i(1, 1); // Чтобы сработало условие...
+	setCurrentChunk(curChunkPos);
 }
 
 void Map::update(float elapsedTime)
@@ -45,46 +24,40 @@ void Map::update(float elapsedTime)
 
 }
 
-void Map::draw(sf::RenderWindow* window)
+void Map::draw()
 {
-	/*for (int i = curChunk.y - 1; i <= curChunk.y + 1; i++)
+	// Рисуем текущий чанк, и все чанки вокруг, если они существуют
+	sf::Vector2i chunkPos;
+	for (int i = curChunkPos.y - 1; i <= curChunkPos.y + 1; i++)
 	{
-		for (int j = curChunk.x - 1; j <= curChunk.x + 1; j++)
+		for (int j = curChunkPos.x - 1; j <= curChunkPos.x + 1; j++)
 		{
-			auto chunk = std::find(positions.begin(), positions.end(), sf::Vector2i(j,i));
-			if (chunk != positions.end())
+			chunkPos.x = j;
+			chunkPos.y = i;
+			if (map.count(chunkPos) > 0)
 			{
-				auto index = chunk - positions.begin();
-				map[index].draw(window);
+				map.at(chunkPos)->draw();
 			}
 		}
-	}*/
+	}
 }
 
-void Map::setCurrentChunk(sf::Vector2i _curChunk)
+void Map::setCurrentChunk(sf::Vector2i _curChunkPos)
 {
-	//curChunk = _curChunk;
+	if (curChunkPos != _curChunkPos)
+	{
+		curChunkPos = _curChunkPos;
 
-	//// Перебираем все следующие чанки и добавляем их в карту
-	//for (int i = 0; i < map.at(curChunk).nextChunks.size(); i++)
-	//{
-	//	MapChunk& nextChunk = map.at(curChunk).nextChunks[i];
-	//	if (!nextChunk.isGenerated)
-	//	{
-	//		map.emplace(std::pair<sf::Vector2i, MapChunk>(nextChunk.position, nextChunk));
-	//		nextChunk.generate();
-	//		// Почему-то следующий чанк не генерируется, возможно он не добавляется в вектор в Road
-	//	}
-	//}
-
-	//// Генерируем все чанки вокруг текущего
-	//for (int i = curChunk.y - 1; i <= curChunk.y + 1; i++)
-	//{
-	//	for (int j = curChunk.x - 1; j <= curChunk.x + 1; j++)
-	//	{
-	//		sf::Vector2i chunk(j, i);
-	//		if (map.count(chunk) > 0)
-	//			map.at(chunk).generate();
-	//	}
-	//}
+		// Перебираем все следующие чанки текущего чанка
+		for (int i = 0; i < map.at(curChunkPos)->nextChunks.size(); i++)
+		{
+			MapChunk& nextChunk = map.at(curChunkPos)->nextChunks[i];
+			// Если мы впервые натыкаемся на этот чанк, то добавляем его в карту и генерируем его
+			if (!nextChunk.isGenerated)
+			{
+				map.emplace(nextChunk.position, &nextChunk);
+				nextChunk.generate();
+			}
+		}
+	}
 }

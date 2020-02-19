@@ -1,20 +1,21 @@
 #include "GameObject.h"
+#include "StandartInclude.h"
 
-GameObject::GameObject(const GraphicObject& _graphic, const PhysicObject& _physic): graphic(_graphic), physic(_physic)
+GameObject::GameObject(const GraphicObject& _graphic, const PhysicObject& _physic):graphic(_graphic), physic(_physic)
 {
-	flag = GAME_OBJ;
 }
 
 void GameObject::update(float elapsedTime)
 {
 	physic.update(elapsedTime);
 	graphic.update(elapsedTime);
-
 }
 
-void GameObject::draw(sf::RenderWindow* window)
+void GameObject::output()
 {
-	graphic.draw(window);
+	physic.output();
+	graphic.output();
+
 }
 
 GraphicObject& GameObject::getGraphic()

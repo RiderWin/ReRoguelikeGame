@@ -20,7 +20,7 @@ public:
 	GameObject(const GraphicObject& _graphic, const PhysicObject& _physic);
 	
 	virtual void update(float elapsedTime) override;
-	virtual void draw(sf::RenderWindow* window) override;
+	virtual void output() override;
 
 	GraphicObject& getGraphic();
 	PhysicObject& getPhysic();

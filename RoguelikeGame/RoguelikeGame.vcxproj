@@ -132,31 +132,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Array.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GraphicEngine.cpp" />
     <ClCompile Include="GraphicObject.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChunk.cpp" />
+    <ClCompile Include="PhysicEngine.cpp" />
     <ClCompile Include="PhysicObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Array.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphicEngine.h" />
     <ClInclude Include="GraphicObject.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChunk.h" />
+    <ClInclude Include="PhysicEngine.h" />
     <ClInclude Include="PhysicObject.h" />
+    <ClInclude Include="StandartInclude.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\img\box.png" />

@@ -1,9 +1,10 @@
 #include "Hero.h"
+#include "StandartInclude.h"
+#include "Map.h"
 
 Hero::Hero() :GameObject(GraphicObject(GameData::texHero), PhysicObject())
 {
-	graphic.setOrigin(GameData::texHero.getSize().x/2, GameData::texHero.getSize().y / 2);
-	health = 0;
+	graphic.setOrigin(GameData::texHero.getSize().x / 2, GameData::texHero.getSize().y / 2);
 	speed = 400;
 }
 
@@ -43,4 +44,8 @@ void Hero::update(float elapsedTime)
 	graphic.move(velocity * speed * elapsedTime);
 	velocity.x = 0;
 	velocity.y = 0;
+
+
+	Map::setCurrentChunk(graphic.getChunkPos());
+
 }

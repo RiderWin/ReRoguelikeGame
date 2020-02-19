@@ -1,37 +1,29 @@
 #include "Game.h"
+#include "StandartInclude.h"
+#include "GraphicEngine.h"
+#include "PhysicEngine.h"
+#include "Map.h"
 
-sf::String Game::title = "RoguelikeGame";
-
-
-//  акие нужны параметры
-// разрешение монитора ( 1366 x 768 )
-// размер тайла ( 32 x 32 )
-// размер карты ( 16 x 9 )
-// 
-// 
-// 
-// 
 
 Game::Game()
 {
-	window.create(sf::VideoMode(GameData::chunkWidthPx, GameData::chunkHeightPx), title, sf::Style::Default);
-	//window.setSize(sf::Vector2u(800, 450));
+	window.create(sf::VideoMode(GameData::chunkWidthPx, GameData::chunkHeightPx), GameConfig::title, sf::Style::Default);
+	GraphicEngine::setWindow(&window);
 
-	// For camera
+	// For camera in GraphicEngine
 	//sf::View& view = *new sf::View(sf::FloatRect(11 * Tile::size, 6 * Tile::size, 22 * Tile::size, 12 * Tile::size));
 	//view.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
 	//window.setView(view);
-
+	Map::create();
 	init();
-	map.generate();
 }
 
 void Game::init()
 {
 	hero = new Hero();
 	hero->getGraphic().setPosition(GameData::chunkWidthPx/2, GameData::chunkHeightPx/2);
-
-	objects.push_back(hero);
+	
+	objects.emplace_back(hero);
 }
 
 void Game::start()
@@ -49,7 +41,7 @@ void Game::start()
 		}
 
 		update(elapsedTime);
-		draw();
+		output();
 	}
 }
 
@@ -75,7 +67,7 @@ void Game::input(sf::Event event)
 		}
 	}
 
-	for (int i = 0; i != objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->input(event);
 	}
@@ -84,26 +76,23 @@ void Game::input(sf::Event event)
 void Game::update(float elapsedTime)
 {
 	window.setView(sf::View(sf::FloatRect(
-		hero->getGraphic().getPosition().x - GameData::chunkWidthPx/2,
-		hero->getGraphic().getPosition().y - GameData::chunkHeightPx/2,
-		GameData::chunkWidthPx, GameData::chunkHeightPx)));
-	
-	
-	//map.fun(hero->getGraphic().getGlobalBounds());
-	for (int i = 0; i != objects.size(); i++)
+		hero->getGraphic().getPosition().x - GameData::chunkWidthPx/2*5,
+		hero->getGraphic().getPosition().y - GameData::chunkHeightPx/2*5,
+		GameData::chunkWidthPx*5, GameData::chunkHeightPx*5)));
+
+	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->update(elapsedTime);
 	}
 }
 
-void Game::draw()
+void Game::output()
 {
 	window.clear();
-	map.draw(&window);
-	for (int i = 0; i != objects.size(); i++)
+	Map::draw();
+	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->draw(&window);
+		objects[i]->output();
 	}
-
 	window.display();
 }

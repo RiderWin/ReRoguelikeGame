@@ -4,8 +4,7 @@
 //	
 //------------------------
 #pragma once
-#include <vector>
-#include "GameObject.h"
+#include <map>
 #include "MapChunk.h"
 
 
@@ -14,21 +13,16 @@
 class Map
 {
 private:
-	int width;
-	int height;
-	std::vector<sf::Vector2i> positions; // ѕозиции чанков
-	std::vector<MapChunk> map; // чанки
-		//std::map<sf::Vector2i, MapChunk&&> map;
-	sf::Vector2i curChunk; // чанк, в котором находитс€ главный герой
+	Map();
+	static std::map<sf::Vector2i, MapChunk*> map; // ѕозици€ чанка, указатель на сам чанк
+	static sf::Vector2i curChunkPos; // „анк, относительно которого генерируетс€ и рисуетс€ карта
+	static MapChunk* startChunk; // —тартовый чанк
 
 public:
-	Map();
-
-	void generate();
-	void clear();
-	void update(float elapsedTime);
-	void draw(sf::RenderWindow* window);
-	void debug();
-	void setCurrentChunk(sf::Vector2i _curChunk);
+	static void create();
+	static void update(float elapsedTime);
+	static void draw();
+	static void debug();
+	static void setCurrentChunk(sf::Vector2i _curChunkPos);
 };
 

@@ -1,6 +1,8 @@
 #include "GameConfig.h"
+#include "StandartInclude.h"
 
-bool GameConfig::isDebug = false;
+bool GameConfig::isDebug = true;
+sf::String GameConfig::title = "Trees";
 sf::Vector2u GameConfig::resolution;
 
 void GameConfig::init()
