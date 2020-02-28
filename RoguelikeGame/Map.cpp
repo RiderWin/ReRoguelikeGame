@@ -10,7 +10,7 @@ MapChunk* Map::startChunk;
 void Map::create()
 {
 	curChunkPos = sf::Vector2i(0, 0);
-	startChunk = new MapChunk(curChunkPos, sf::Vector2i(5, 5));
+	startChunk = new MapChunk(curChunkPos, sf::Vector2i(1, 1));
 
 	map.emplace(curChunkPos, startChunk);
 	map.at(curChunkPos)->generate();
@@ -52,10 +52,11 @@ void Map::setCurrentChunk(sf::Vector2i _curChunkPos)
 		for (int i = 0; i < map.at(curChunkPos)->nextChunks.size(); i++)
 		{
 			MapChunk& nextChunk = map.at(curChunkPos)->nextChunks[i];
+
 			// Если мы впервые натыкаемся на этот чанк, то добавляем его в карту и генерируем его
+			map.emplace(nextChunk.position, &nextChunk);
 			if (!nextChunk.isGenerated)
 			{
-				map.emplace(nextChunk.position, &nextChunk);
 				nextChunk.generate();
 			}
 		}

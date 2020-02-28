@@ -8,14 +8,15 @@
 
 class Game
 {
-private:
-	sf::RenderWindow window;
-	
+private:	
 	std::vector<BaseObject*> objects;
 	GameObject* gameObj;
 	Hero* hero;
 
 public:
+	static int forestScene;
+	static int mindScene;
+
 	Game();
 	void init();
 	void start();

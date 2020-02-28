@@ -17,3 +17,8 @@ void GraphicEngine::setWindow(sf::RenderWindow* _window)
 {
 	window = _window;
 }
+
+void GraphicEngine::setView(sf::View& view)
+{
+	window->setView(view);
+}

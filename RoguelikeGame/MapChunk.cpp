@@ -1,9 +1,10 @@
 #include "MapChunk.h"
 #include "StandartInclude.h"
+#include "Map.h"
 
 // Road
-const int MapChunk::Road::width = GameData::chunkWidth / 2;
-const int MapChunk::Road::height = GameData::chunkHeight / 2;
+const int MapChunk::Road::width = GameData::roadWidth;
+const int MapChunk::Road::height = GameData::roadHeight;
 
 MapChunk::Road::Road(MapChunk* _chunk, const sf::Vector2i& _startPos)
 {
@@ -17,8 +18,8 @@ void MapChunk::Road::generate()
 	sf::Vector2i tile = startPos; // Текущий тайл дороги
 
 	// Рисуем стартовый тайл дороги
-	road[tile.y][tile.x] = new GraphicObject(GameData::texRoad);
-	road[tile.y][tile.x]->setPosition(chunk->position, tile * 2);
+	road[tile.y][tile.x] = new GraphicObject(GameData::texDirt);
+	road[tile.y][tile.x]->setPosition(chunk->position, tile * 3);
 
 	std::vector<sf::Vector2i> oldTiles; // Пройденные тайлы
 	while (true)
@@ -61,10 +62,10 @@ void MapChunk::Road::generate()
 			oldTiles.emplace_back(tile);
 			sf::Vector2i dir = freeDirs[rand() % freeDirs.size()]; // Выбираем любое направление
 			tile += dir;
-			
+
 			// Рисуем тайл дороги
-			road[tile.y][tile.x] = new GraphicObject(GameData::texRoad);
-			road[tile.y][tile.x]->setPosition(chunk->position, tile * 2);
+			road[tile.y][tile.x] = new GraphicObject(GameData::texDirt);
+			road[tile.y][tile.x]->setPosition(chunk->position, tile * 3);
 
 
 			// Если эта клетка оказалась у края, то заканчиваем генерацию
@@ -147,6 +148,26 @@ void MapChunk::generate()
 	if (!isGenerated)
 	{
 		road.generate();
+
+		// Закрывает чанки вокруг лесом кроме следующих
+		/*for (int i = position.y - 1; i <= position.y + 1; i++)
+		{
+			for (int j = position.x - 1; j <= position.x + 1; j++)
+			{
+				if(Map::)
+			}
+		}*/
+
+
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				tiles[i][j] = new GraphicObject(GameData::texGrass);
+				tiles[i][j]->setPosition(position, sf::Vector2i(j, i));
+			}
+		}
 		isGenerated = true;
 	}
 }

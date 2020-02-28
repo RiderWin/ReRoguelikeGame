@@ -133,6 +133,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChunkLayer.cpp" />
     <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameData.cpp" />
@@ -145,9 +147,14 @@
     <ClCompile Include="MapChunk.cpp" />
     <ClCompile Include="PhysicEngine.cpp" />
     <ClCompile Include="PhysicObject.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneChunk.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChunkLayer.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameData.h" />
@@ -159,6 +166,9 @@
     <ClInclude Include="MapChunk.h" />
     <ClInclude Include="PhysicEngine.h" />
     <ClInclude Include="PhysicObject.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneChunk.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="StandartInclude.h" />
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,9 @@
     <Filter Include="Исходные файлы\Game\GameObjects">
       <UniqueIdentifier>{b5eb6b37-6e97-4218-a271-615c06ded116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Engine\Scene">
+      <UniqueIdentifier>{094ee064-c8f9-4370-9546-817b9f3d667d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -71,6 +74,21 @@
     <ClCompile Include="PhysicEngine.cpp">
       <Filter>Исходные файлы\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneChunk.cpp">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkLayer.cpp">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicObject.h">
@@ -111,6 +129,21 @@
     </ClInclude>
     <ClInclude Include="PhysicEngine.h">
       <Filter>Исходные файлы\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneChunk.h">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkLayer.h">
+      <Filter>Исходные файлы\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

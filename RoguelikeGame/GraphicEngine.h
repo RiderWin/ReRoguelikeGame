@@ -13,6 +13,7 @@ private:
 public:
 	static void draw(const GraphicObject& obj);
 	static void setWindow(sf::RenderWindow* _window);
+	static void setView(sf::View& view);
 
 	friend class GraphicObject;
 };

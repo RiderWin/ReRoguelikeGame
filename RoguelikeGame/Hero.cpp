@@ -5,7 +5,7 @@
 Hero::Hero() :GameObject(GraphicObject(GameData::texHero), PhysicObject())
 {
 	graphic.setOrigin(GameData::texHero.getSize().x / 2, GameData::texHero.getSize().y / 2);
-	speed = 400;
+	speed = 100;
 }
 
 void Hero::input(sf::Event event)
